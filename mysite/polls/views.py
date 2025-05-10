@@ -1,4 +1,5 @@
 from django.db.models import F
+from django.db.models import Count
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.urls import reverse
@@ -12,7 +13,9 @@ class IndexView(generic.ListView):
     context_object_name = "latest_question_list"
 
     def get_queryset(self):
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+        return Question.objects.annotate(
+            num_choice=Count('choice')
+        ).filter(num_choice__gt=0).filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
 
 
 class DetailView(generic.DetailView):
