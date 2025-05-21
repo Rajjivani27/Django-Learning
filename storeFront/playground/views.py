@@ -1,20 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
-# Create your views here.
-# takes request and returns a response
-# its a request handler
+from django.db.models import F
+from django.db.models import Count
+from django.shortcuts import render,get_object_or_404
+from django.http import HttpResponse,Http404,HttpResponseRedirect
+from django.urls import reverse
+from django.views import generic
+from django.utils import timezone
 
 def say_hello(request):
-    peoples = [
-        {'name' : 'Raj Jivani' , 'age' : 17},
-        {'name' : 'Dhruvin Andhariya' , 'age' : 22},
-        {'name' : 'Jay Kanani' , 'age' : 19},
-        {'name' : 'Preet Jani' , 'age' : 19},
-        {'name' : 'Raj Modi' , 'age' : 19},
-        {'name' : 'Manthan Gajjar' , 'age' : 19}
-    ]
-
-    return render(request,'hello.html',context = {'peoples' : peoples})
-
+    return HttpResponse("Hello! Welcome Here")
 

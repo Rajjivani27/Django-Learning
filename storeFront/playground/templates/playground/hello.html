@@ -1,0 +1,11 @@
+<form action="/last/" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1> Positions </h1></legend>
+    <label for="Name">Name: </label>
+    <input type="text" id="Name" name="Name">
+    <p>{{ position.get_Medaltype_display }}</p>
+
+    
+</fieldset>
+</form>
