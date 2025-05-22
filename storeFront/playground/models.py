@@ -1,11 +1,8 @@
 from django.db import models
 
-class Position(models.Model):
-    name = models.CharField(max_length=30)
-    medaltype = [
-        ('GL','Gold'),
-        ('SL','Silver'),
-        ('BR','Bronze')
-    ]
+class Car(models.Model):
+    car_name = models.CharField(max_length=15)
+    car_speed = models.IntegerField(default=40)
 
-    Medaltype = models.TextField(choices=medaltype)
+    def __str__(self):
+        return self.car_name
