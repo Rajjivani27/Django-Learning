@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 import os.path
 import sys
 
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'vege.apps.VegeConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+# EXTERNAL_APPS = [
+#     'polls',
+#     'vege'
+# ]
+
+# INSTALLED_APPS += EXTERNAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,13 +128,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles/'
-#STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR,'staticfiles')
-#]
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIR = [
+    os.path.join(BASE_DIR,'public/static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'public/static')
 MEDIA_URL = '/media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
