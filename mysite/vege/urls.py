@@ -5,5 +5,7 @@ from django.conf.urls.static import static
 from .views import *
 
 urlpatterns = [
-    path('recepies/', recepies ,name='recepies')
+    path('recepies/', recepies ,name='recepies'),
+    path('delete_recepie/<id>/', delete_recepie, name='delete_recepie'),
+    path('update_recepie/<id>/', update_recepie, name='update_recepie')
 ]

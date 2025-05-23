@@ -28,17 +28,24 @@
                     <th scope="col">Recepie Name</th>
                     <th scope="col">Recepie Description</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for recepie in recepies %}
                     <tr>
-                        <th scope="row"> {{ recepie.id }} </th>
+                        <th scope="row"> {{ forloop.counter }} </th>
                         <th scope="row"> {{recepie.recepie_name}} </th>
                         <th scope="row"> {{recepie.recepie_description}} </th>
                         <th scope="row"> 
                             <image src="/media/{{recepie.recepie_image}}" style="height: 100px;"></image>
                         </th>
+                        <td>
+                            <a href="/update_recepie/{{recepie.id}}" class="btn btn-success">Update</a>
+                            <a href="/delete_recepie /{{recepie.id}}" class="btn btn-danger">
+                                Delete
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
