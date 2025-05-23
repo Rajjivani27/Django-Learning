@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block start %}
+    <div class="container mt-5">
+        <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Add Recepie</h2>
+            <hr>
+            <div class="recepie mb-3">
+                <lable for="recepieName" class="form-label">Recepie Name</lable>
+                <input name="recepie_name" required type="text" class="form-control">
+            </div>
+            <div class="recepie mb-3">
+                <label for="recepieDesc" class="form-label">Recepie Description</label>
+                <textarea name="recepie_description" required class="form-control"></textarea> 
+            </div>
+            <div class="recepie mb-3">
+                <label for="recepieImage" class="form-label">Recepie Image</label>
+                <input type="file" class="form-control" name="recepie_image">
+            </div>
+            <button type="submit" class="btn btn-success"> Add Recepie </button>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sr. No</th>
+                    <th scope="col">Recepie Name</th>
+                    <th scope="col">Recepie Description</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recepie in recepies %}
+                    <tr>
+                        <th scope="row"> {{ recepie.id }} </th>
+                        <th scope="row"> {{recepie.recepie_name}} </th>
+                        <th scope="row"> {{recepie.recepie_description}} </th>
+                        <th scope="row"> 
+                            <image src="/media/{{recepie.recepie_image}}" style="height: 100px;"></image>
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %} 
