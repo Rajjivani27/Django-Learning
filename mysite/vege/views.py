@@ -22,6 +22,9 @@ def recepies(request):
         return redirect('/recepies/')
     
     queryset = Recepie.objects.all()
+    if request.GET.get('search'):
+        queryset = queryset.filter(recepie_name__icontains = request.GET.get('search'))
+    
     context = {'recepies' : queryset}
 
     return render(request,'recepies.html',context)
