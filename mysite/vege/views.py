@@ -1,7 +1,58 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from .models import *
+from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+def login_page(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if not(User.objects.filter(username=username).exists()):
+            messages.error(request,'Invalid Username')
+            return redirect('/login/')
+
+        user = authenticate(request,username=username,password=password)
+
+        if user is None:
+            messages.error(request,'Invalid Password!!')
+            return redirect('/login/')
+        else:
+            login(request,user)
+            return redirect('/recepies/')
+    
+    return render(request,'login.html')
+
+def register_page(request):
+    if request.method == 'POST':
+        data = request.POST
+        username = data.get('username')
+        password = data.get('password')
+
+        user = User.objects.filter(username=username)
+
+        if user.exists():
+            messages.error(request,'Username already exist!!!')
+            return redirect('/register/')
+        
+
+        user = User.objects.create(
+            username = username,
+        )
+
+
+        user.set_password(password)
+        user.save()
+        
+        messages.success(request,'Account Created Succesfully!')
+        return redirect('/recepies/')
+    
+    return render(request,'register.html')
+
+@login_required(login_url='/login/')
 def recepies(request):
     if request.method == "POST":
         data = request.POST
@@ -29,11 +80,13 @@ def recepies(request):
 
     return render(request,'recepies.html',context)
 
+@login_required(login_url='/login/')
 def delete_recepie(request,id):
     queryset = Recepie.objects.get(id = id)
     queryset.delete()
     return redirect('/recepies/')
 
+@login_required(login_url='/login/')
 def update_recepie(request,id):
     recepie = Recepie.objects.get(id = id)
     context = {'recepie' : recepie}
@@ -52,4 +105,8 @@ def update_recepie(request,id):
         return redirect('/recepies/')
     
     return render(request,'recepie_update.html',context)
+
+def logoutView(request):
+    logout(request)
+    return redirect('/login/')
 

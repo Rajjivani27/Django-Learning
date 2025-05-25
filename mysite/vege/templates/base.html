@@ -13,6 +13,16 @@
         </style>
     </head>
     <body>
+        <nav class="navbar p-3 bg-primary shadow-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand">Recepie Media</a>
+                    <form class="d-flex" role="navbar">
+                        {% if request.user.is_authenticated %}
+                            <a href="/logout/" class="btn btn-danger" type="submit">Logout</a>
+                        {% endif %}
+                    </form>
+            </div>
+        </nav>
         {% block start %}
 
         {% endblock %}
