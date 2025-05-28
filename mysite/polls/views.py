@@ -5,6 +5,7 @@ from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+import time
 
 from .models import Question,Choice
 
