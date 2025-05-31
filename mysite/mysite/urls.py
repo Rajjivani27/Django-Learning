@@ -23,7 +23,8 @@ from .settings import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('polls/',include('polls.urls')),
-    path('',include('vege.urls'))
+    path('',include('vege.urls')),
+    path('',include('reportcard.urls'))
 ] + static('/static/',document_root = BASE_DIR / 'staticfiles')
 
 if settings.DEBUG:
