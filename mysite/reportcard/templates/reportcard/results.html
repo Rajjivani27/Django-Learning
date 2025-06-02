@@ -1,0 +1,52 @@
+{% extends "reportcard/base.html" %}
+{% block start %}
+
+<div class="container mt-5">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th style="width: 20%;">Student Name</th>
+                <th>{{student.student_name}}</th>
+            </tr>
+            <tr>
+                <th>Student-ID</th>
+                <th>{{student.student_id}}</th>
+            </tr>
+            <tr>
+                <th>Department</th>
+                <th>{{student.department}}</th>
+            </tr>
+            <tr>
+                <th>Student-Email</th>
+                <th>{{student.student_email}}</th>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <th>{{student.student_age}}</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Sr.No</th>
+                <th>Subject Name</th>
+                <th>Total Marks</th>
+                <th>Obtained Marks</th>
+            </tr>
+
+            {% for subjectmark in subjectmakrs %}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <th>{{subjectmark.subject}}</th>
+                    <th>100</th>
+                    <th>{{subjectmark.marks}}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

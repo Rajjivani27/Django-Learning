@@ -21,11 +21,12 @@ def create_subject_marks() -> None:
 def seed_db(n=100) -> None:
     try:
         departments_obj = Department.objects.all()
-        for _ in range(n):
+        studentids = random.sample(range(0,999),n)
+        for i in range(n):
             random_index = random.randint(0 , len(departments_obj)-1)
 
             department = departments_obj[random_index]
-            student_id = f'STU-0{random.randint(100,999)}'
+            student_id = f'STU-0{studentids[i]}'
             student_name = fake.name()
             student_email = fake.email()
             student_age = random.randint(20,30)

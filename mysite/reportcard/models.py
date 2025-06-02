@@ -15,6 +15,9 @@ class StudentID(models.Model):
     def __str__(self) -> str:
         return self.student_id
     
+    class Meta:
+        ordering = ['student_id']
+    
 class Student(models.Model):
     department = models.ForeignKey(Department,related_name="depart",on_delete=models.CASCADE)
     student_id = models.OneToOneField(StudentID,related_name="studentid",on_delete=models.CASCADE)
