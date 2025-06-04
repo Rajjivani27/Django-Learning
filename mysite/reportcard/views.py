@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import StudentID,Student,SubjectMarks
+from .models import StudentID,Student,SubjectMarks,ReportCard
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -24,5 +24,16 @@ def get_student(request):
 
 def get_result(request,student_id):
     student = Student.objects.get(student_id__student_id = student_id)
+
+    reportcard = ReportCard.objects.get(student__student_name = student.student_name)
+    print(reportcard)
+    rank = reportcard.student_rank
+
     subjectmarks = SubjectMarks.objects.filter(student = student)
-    return render(request,'reportcard/results.html',{'subjectmakrs' : subjectmarks , 'student' : student})
+    result = True
+
+    for subjectmark in subjectmarks:
+        if subjectmark.marks < 35:
+            result = False
+
+    return render(request,'reportcard/results.html',{'subjectmakrs' : subjectmarks , 'student' : student , 'result' : result , 'rank' : rank})

@@ -2,6 +2,17 @@
 {% block start %}
 
 <div class="container mt-5">
+    <h2>
+        {% if result %}
+            Rank : {{rank}} 
+            <br>
+            Result : Pass
+        {% else %}
+            Rank : -
+            <br>
+            Result : Fail
+        {% endif %}
+    </h2>
     <table class="table table-striped">
         <tbody>
             <tr>

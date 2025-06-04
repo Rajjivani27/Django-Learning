@@ -21,12 +21,13 @@ def create_subject_marks() -> None:
 def seed_db(n=100) -> None:
     try:
         departments_obj = Department.objects.all()
-        studentids = random.sample(range(0,999),n)
+        studentids = random.sample(range(100,300),n)
+        
         for i in range(n):
             random_index = random.randint(0 , len(departments_obj)-1)
 
             department = departments_obj[random_index]
-            student_id = f'STU-0{studentids[i]}'
+            student_id = f'STU-{studentids[i]}'
             student_name = fake.name()
             student_email = fake.email()
             student_age = random.randint(20,30)
@@ -44,3 +45,21 @@ def seed_db(n=100) -> None:
             )
     except Exception as e:
         print(e)
+
+from django.db.models import Sum
+
+def get_reportcard():
+    deps = Department.objects.all()
+
+    for dep in deps:
+        ranks = Student.objects.filter(department = dep).annotate(marks = Sum('studentmarks__marks')).order_by('-marks')
+
+        i = 1
+
+        for rank in ranks:
+            ReportCard.objects.create(
+                student = rank,
+                student_rank = i
+            )
+            i = i + 1
+            
