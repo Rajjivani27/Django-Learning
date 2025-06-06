@@ -52,7 +52,7 @@ def get_reportcard():
     deps = Department.objects.all()
 
     for dep in deps:
-        ranks = Student.objects.filter(department = dep).annotate(marks = Sum('studentmarks__marks')).order_by('-marks')
+        ranks = Student.objects.filter(department = dep).annotate(marks = Sum('studentmarks__marks')).order_by('-marks','student_name')
 
         i = 1
 
