@@ -25,19 +25,21 @@ SECRET_KEY = 'django-insecure-j=*rv2yvz3kq6c=eu5of1h(ihzl8bumfs=75)@bbgvlr33t69^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+AUTH_USER_MODEL = 'playground.CustomUser'
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'playground',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'playground',
 ]
 
 MIDDLEWARE = [
@@ -122,9 +124,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",
-# ]
 
 
 
